@@ -3,7 +3,7 @@ FROM ros:jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 
-ARG FLORIBOT_BASE_REPO=https://github.com/Team-FloriBot/FloriBot4.0_ROS2_Jazzy_Base.git
+ARG FLORIBOT_BASE_REPO=https://github.com/Team-FloriBot/FloriBot4.0-ROS2_old
 ARG FLORIBOT_BASE_REF=main
 ARG SICK_SCAN_REPO=https://github.com/SICKAG/sick_scan_xd.git
 ARG SICK_SCAN_REF=develop
