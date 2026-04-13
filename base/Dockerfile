@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-sensor-msgs \
     ros-jazzy-tf2 \
     ros-jazzy-tf2-ros \
+    ros-jazzy-tf2-geometry-msgs \
     ros-jazzy-rosidl-default-generators \
     ros-jazzy-rosidl-default-runtime \
     ros-jazzy-rmw-fastrtps-cpp \
