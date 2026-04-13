@@ -1,0 +1,65 @@
+FROM ros:jazzy
+
+ENV DEBIAN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "-c"]
+
+ARG SICK_SCAN_REPO=https://github.com/SICKAG/sick_scan_xd.git
+ARG SICK_SCAN_REF=develop
+ARG REALSENSE_ROS_REPO=https://github.com/realsenseai/realsense-ros.git
+ARG REALSENSE_ROS_REF=ros2-master
+
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    cmake \
+    python3-colcon-common-extensions \
+    python3-pip \
+    python3-rosdep \
+    python3-vcstool \
+    python3-numpy \
+    usbutils \
+    udev \
+    pkg-config \
+    libusb-1.0-0-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    ros-jazzy-rclcpp \
+    ros-jazzy-rclpy \
+    ros-jazzy-std-msgs \
+    ros-jazzy-sensor-msgs \
+    ros-jazzy-sensor-msgs-py \
+    ros-jazzy-geometry-msgs \
+    ros-jazzy-diagnostic-updater \
+    ros-jazzy-tf2 \
+    ros-jazzy-tf2-ros \
+    ros-jazzy-tf2-geometry-msgs \
+    ros-jazzy-tf2-sensor-msgs \
+    ros-jazzy-laser-geometry \
+    ros-jazzy-xacro \
+    ros-jazzy-urdf \
+    ros-jazzy-rmw-fastrtps-cpp \
+    librealsense2-dev \
+    librealsense2-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /ws/src
+
+RUN git clone --branch ${SICK_SCAN_REF} --depth 1 ${SICK_SCAN_REPO} sick_scan_xd && \
+    git clone --branch ${REALSENSE_ROS_REF} --depth 1 ${REALSENSE_ROS_REPO} realsense-ros
+
+WORKDIR /ws
+
+RUN rosdep init 2>/dev/null || true && rosdep update || true
+
+RUN source /opt/ros/jazzy/setup.bash && \
+    rosdep install -i --from-paths /ws/src --rosdistro jazzy --skip-keys=librealsense2 -r -y || true
+
+RUN source /opt/ros/jazzy/setup.bash && \
+    cd /ws && \
+    colcon build --packages-select sick_scan_xd realsense2_camera realsense2_camera_msgs realsense2_description
+
+COPY sensors/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["bash"]
