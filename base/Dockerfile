@@ -3,7 +3,7 @@ FROM ros:jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 
-ARG FLORIBOT_BASE_REPO=https://github.com/Team-FloriBot/FloriBot4.0_ROS2_Jazzy_Base.git
+ARG FLORIBOT_BASE_REPO=https://github.com/Team-FloriBot/FloriBot4.0-ROS2_old.git
 ARG FLORIBOT_BASE_REF=main
 
 RUN apt-get update && apt-get install -y \
