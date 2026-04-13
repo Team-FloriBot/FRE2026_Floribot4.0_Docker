@@ -1,4 +1,24 @@
 services:
+  floribot-base:
+    profiles: ["core", "robot", "base"]
+    build:
+      context: ..
+      dockerfile: base/Dockerfile
+    container_name: floribot-base
+    network_mode: host
+    ipc: host
+    pid: host
+    privileged: true
+    environment:
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID}
+      ROS_AUTOMATIC_DISCOVERY_RANGE: ${ROS_AUTOMATIC_DISCOVERY_RANGE}
+      RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
+    volumes:
+      - /dev:/dev
+      - /dev/bus/usb:/dev/bus/usb
+      - /run/udev:/run/udev:ro
+    restart: unless-stopped
+
   floribot-sensors:
     profiles: ["core", "robot", "sensors"]
     build:
@@ -19,30 +39,30 @@ services:
       - /run/udev:/run/udev:ro
     restart: unless-stopped
 
-  floribot-base:
-    profiles: ["core", "robot", "base"]
+  floribot-webteleop:
+    profiles: ["core", "ui"]
     build:
       context: ..
-      dockerfile: base/Dockerfile
-    container_name: floribot-base
-    network_mode: host
+      dockerfile: webteleop/Dockerfile
+    container_name: floribot-webteleop
     ipc: host
     pid: host
-    privileged: true
+    depends_on:
+      - floribot-base
     environment:
       ROS_DOMAIN_ID: ${ROS_DOMAIN_ID}
       ROS_AUTOMATIC_DISCOVERY_RANGE: ${ROS_AUTOMATIC_DISCOVERY_RANGE}
       RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
-    volumes:
-      - /dev:/dev
+    ports:
+      - "8000:8000"
     restart: unless-stopped
 
-  floribot-gazebo:
-    profiles: ["sim", "gazebo"]
+  floribot-stage:
+    profiles: ["sim", "stage"]
     build:
       context: ..
-      dockerfile: gazebo/Dockerfile
-    container_name: floribot-gazebo
+      dockerfile: stage/Dockerfile
+    container_name: floribot-stage
     network_mode: host
     ipc: host
     pid: host
@@ -56,12 +76,12 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     restart: unless-stopped
 
-  floribot-stage:
-    profiles: ["sim", "stage"]
+  floribot-gazebo:
+    profiles: ["sim", "gazebo"]
     build:
       context: ..
-      dockerfile: stage/Dockerfile
-    container_name: floribot-stage
+      dockerfile: gazebo/Dockerfile
+    container_name: floribot-gazebo
     network_mode: host
     ipc: host
     pid: host
