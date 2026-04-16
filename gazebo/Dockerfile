@@ -3,6 +3,9 @@ FROM ros:jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 
+ARG VIRTUAL_MAIZE_FIELD_REPO=https://github.com/FieldRobotEvent/virtual_maize_field.git
+ARG VIRTUAL_MAIZE_FIELD_REF=ros2-gz
+
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
@@ -13,25 +16,45 @@ RUN sed -i 's|http://archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu
     sed -i 's|http://security.ubuntu.com/ubuntu|https://security.ubuntu.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
 
 RUN apt-get update && apt-get install -y \
+    git \
+    python3-colcon-common-extensions \
+    python3-pip \
+    python3-rosdep \
+    python3-vcstool \
+    python3-rospkg \
+    python3-jinja2 \
+    python3-opencv \
+    python3-matplotlib \
+    python3-shapely \
+    python3-packaging \
+    python3-yaml \
     ros-jazzy-ros-base \
     ros-jazzy-ros-gz \
     ros-jazzy-ros-gz-sim \
     ros-jazzy-ros-gz-bridge \
     ros-jazzy-ros-gz-interfaces \
     ros-jazzy-rmw-cyclonedds-cpp \
-    ros-jazzy-xacro \
-    ros-jazzy-robot-state-publisher \
-    ros-jazzy-joint-state-publisher \
-    ros-jazzy-controller-manager \
-    ros-jazzy-diff-drive-controller \
-    ros-jazzy-position-controllers \
-    ros-jazzy-joint-state-broadcaster \
     && rm -rf /var/lib/apt/lists/*
 
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+WORKDIR /ws/src
+
+RUN git clone --branch ${VIRTUAL_MAIZE_FIELD_REF} --depth 1 ${VIRTUAL_MAIZE_FIELD_REPO} virtual_maize_field
+
+WORKDIR /ws
+
+RUN rosdep init 2>/dev/null || true && rosdep update || true
+
+RUN source /opt/ros/jazzy/setup.bash && \
+    rosdep install --from-paths /ws/src --ignore-src -r -y || true
+
+RUN source /opt/ros/jazzy/setup.bash && \
+    cd /ws && \
+    colcon build
 
 COPY gazebo/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["bash", "-lc", "ros2 launch ros_gz_sim gz_sim.launch.py"]
+CMD ["bash", "-lc", "source /ws/install/setup.bash && ros2 run virtual_maize_field generate_world fre22_task_navigation_mini && ros2 launch virtual_maize_field simulation.launch.py"]
