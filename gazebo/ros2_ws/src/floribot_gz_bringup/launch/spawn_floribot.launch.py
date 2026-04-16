@@ -12,4 +12,6 @@ def generate_launch_description():
         }.items(),
     )
 
-    return LaunchDescription([spawn_robot])
+    return LaunchDescription([
+        spawn_robot,
+    ])
