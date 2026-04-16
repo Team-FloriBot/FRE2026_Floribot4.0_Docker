@@ -1,1 +1,23 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>floribot_gz_bringup</name>
+  <version>0.0.1</version>
+  <description>Bringup package for FloriBot 4.0 in Gazebo Sim</description>
 
+  <maintainer email="tzimmerman@stud.hs-heilbronn.de">Timo Zimmermann</maintainer>
+  <license>Proprietary</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+  <depend>xacro</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>ros_gz_sim</depend>
+  <depend>floribot_gz_description</depend>
+  <depend>virtual_maize_field</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
