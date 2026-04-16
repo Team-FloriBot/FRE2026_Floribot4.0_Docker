@@ -29,6 +29,9 @@ RUN apt-get update && apt-get install -y \
     python3-packaging \
     python3-yaml \
     ros-jazzy-ros-base \
+    ros-jazzy-xacro \
+    ros-jazzy-robot-state-publisher \
+    ros-jazzy-joint-state-publisher \
     ros-jazzy-ros-gz \
     ros-jazzy-ros-gz-sim \
     ros-jazzy-ros-gz-bridge \
@@ -41,6 +44,9 @@ ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 WORKDIR /ws/src
 
 RUN git clone --branch ${VIRTUAL_MAIZE_FIELD_REF} --depth 1 ${VIRTUAL_MAIZE_FIELD_REPO} virtual_maize_field
+
+COPY gazebo/ros2_ws/src/floribot_gz_description /ws/src/floribot_gz_description
+COPY gazebo/ros2_ws/src/floribot_gz_bringup /ws/src/floribot_gz_bringup
 
 WORKDIR /ws
 
@@ -57,4 +63,4 @@ COPY gazebo/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["bash", "-lc", "source /ws/install/setup.bash && ros2 run virtual_maize_field generate_world fre22_task_navigation_mini && ros2 launch virtual_maize_field simulation.launch.py"]
+CMD ["bash", "-lc", "source /ws/install/setup.bash && ros2 launch floribot_gz_bringup maize_world_with_floribot.launch.py"]
