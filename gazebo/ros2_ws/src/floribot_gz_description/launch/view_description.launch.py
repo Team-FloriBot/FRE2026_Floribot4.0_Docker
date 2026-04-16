@@ -1,15 +1,10 @@
 from launch import LaunchDescription
-from launch.substitutions import Command, PathJoinSubstitution
+from launch.substitutions import Command
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    xacro_file = PathJoinSubstitution([
-        FindPackageShare("floribot_gz_description"),
-        "urdf",
-        "Floribot_gz.urdf.xacro",
-    ])
+    xacro_file = "/ws/src/floribot_gz_description/urdf/Floribot_gz.urdf.xacro"
 
     robot_description = {
         "robot_description": Command(["xacro ", xacro_file])
