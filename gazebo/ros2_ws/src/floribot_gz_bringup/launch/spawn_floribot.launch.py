@@ -1,26 +1,26 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import PathJoinSubstitution
-from launch_ros.substitutions import FindPackageShare
-from virtual_maize_field import get_spawner_launch_file
+from launch.actions import ExecuteProcess
 
 
 def generate_launch_description():
-    robot_model = PathJoinSubstitution([
-        FindPackageShare("floribot_gz_description"),
-        "models",
-        "floribot_test.sdf",
-    ])
-
-    spawn_robot = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([get_spawner_launch_file()]),
-        launch_arguments={
-            "world": "virtual_maize_field",
-            "file": robot_model,
-            "entity_name": "floribot4",
-            "allow_renaming": "False",
-        }.items(),
+    spawn_robot = ExecuteProcess(
+        cmd=[
+            "bash", "-lc",
+            "source /opt/ros/jazzy/setup.bash && "
+            "source /ws/install/setup.bash && "
+            "xacro /ws/src/floribot_gz_description/urdf/Floribot_gz.urdf.xacro > /tmp/floribot_gz.urdf && "
+            "ros2 run ros_gz_sim create "
+            "-world virtual_maize_field "
+            "-name floribot4 "
+            "-file /tmp/floribot_gz.urdf "
+            "-x -1.3631752758808973 "
+            "-y -3.460156696047507 "
+            "-z 0.6499999999999999 "
+            "-R 0.0 "
+            "-P 0.0 "
+            "-Y 1.5980816365126524"
+        ],
+        output="screen",
     )
 
     return LaunchDescription([
