@@ -1,6 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, RegisterEventHandler
-from launch.event_handlers import OnProcessStart
+from launch.actions import IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 import os
@@ -26,10 +25,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         world_launch,
-        RegisterEventHandler(
-            OnProcessStart(
-                target_action=world_launch,
-                on_start=[robot_launch],
-            )
+        TimerAction(
+            period=8.0,
+            actions=[robot_launch],
         ),
     ])
