@@ -9,6 +9,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     xacro_file = "/ws/src/floribot_gz_description/urdf/Floribot_gz.urdf.xacro"
+    rendered_urdf = "/tmp/floribot_gz.urdf"
 
     world_launch = PathJoinSubstitution([
         FindPackageShare("virtual_maize_field"),
@@ -40,13 +41,21 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(world_launch)
     )
 
+    render_robot_file = ExecuteProcess(
+        cmd=[
+            "bash", "-lc",
+            f"source /ws/install/setup.bash && xacro {xacro_file} > {rendered_urdf}"
+        ],
+        output="screen",
+    )
+
     spawn_robot = Node(
         package="ros_gz_sim",
         executable="create",
         arguments=[
             "-world", "virtual_maize_field",
             "-name", "floribot4",
-            "-topic", "robot_description",
+            "-file", rendered_urdf,
             "-x", "-1.3631752758808973",
             "-y", "-3.460156696047507",
             "-z", "0.6499999999999999",
@@ -66,6 +75,7 @@ def generate_launch_description():
                 on_exit=[
                     start_world,
                     state_publisher,
+                    render_robot_file,
                     TimerAction(
                         period=8.0,
                         actions=[spawn_robot],
