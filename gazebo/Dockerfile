@@ -6,6 +6,9 @@ SHELL ["/bin/bash", "-c"]
 ARG VIRTUAL_MAIZE_FIELD_REPO=https://github.com/FieldRobotEvent/virtual_maize_field.git
 ARG VIRTUAL_MAIZE_FIELD_REF=ros2-gz
 
+ARG FLORIBOT_BASE_REPO=https://github.com/Team-FloriBot/FloriBot4.0_ROS2_Jazzy_Base.git
+ARG FLORIBOT_BASE_REF=main
+
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
@@ -49,8 +52,8 @@ COPY gazebo/ros2_ws/src/floribot_gz_description /ws/src/floribot_gz_description
 COPY gazebo/ros2_ws/src/floribot_gz_bringup /ws/src/floribot_gz_bringup
 COPY gazebo/ros2_ws/src/sim_backend /ws/src/sim_backend
 
-# base-Paket für die Message-Typen verfügbar machen
-COPY base/ros2_ws/src/base /ws/src/base
+RUN git clone --branch ${FLORIBOT_BASE_REF} --depth 1 ${FLORIBOT_BASE_REPO} /tmp/floribot_base_repo && \
+    cp -r /tmp/floribot_base_repo/base /ws/src/base
 
 WORKDIR /ws
 
