@@ -7,11 +7,14 @@ ARG SICK_SCAN_REPO=https://github.com/SICKAG/sick_scan_xd.git
 ARG SICK_SCAN_REF=develop
 ARG REALSENSE_ROS_REPO=https://github.com/realsenseai/realsense-ros.git
 ARG REALSENSE_ROS_REF=ros2-master
+ARG LIBREALSENSE_REPO=https://github.com/realsenseai/librealsense.git
+ARG LIBREALSENSE_REF=v2.57.7
 
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     cmake \
+    pkg-config \
     python3-colcon-common-extensions \
     python3-pip \
     python3-rosdep \
@@ -19,10 +22,12 @@ RUN apt-get update && apt-get install -y \
     python3-numpy \
     usbutils \
     udev \
-    pkg-config \
     libusb-1.0-0-dev \
     libgl1-mesa-dev \
     libglu1-mesa-dev \
+    libudev-dev \
+    libx11-dev \
+    libglfw3-dev \
     ros-jazzy-rclcpp \
     ros-jazzy-rclpy \
     ros-jazzy-std-msgs \
@@ -38,12 +43,24 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-xacro \
     ros-jazzy-urdf \
     ros-jazzy-rmw-fastrtps-cpp \
-    librealsense2-dev \
-    librealsense2-utils \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /ws/src
+# librealsense aus Source bauen
+WORKDIR /opt
+RUN git clone --branch ${LIBREALSENSE_REF} --depth 1 ${LIBREALSENSE_REPO} librealsense && \
+    cd librealsense && \
+    mkdir build && cd build && \
+    cmake .. \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_EXAMPLES=false \
+      -DBUILD_GRAPHICAL_EXAMPLES=false \
+      -DBUILD_PYTHON_BINDINGS=false \
+      -DFORCE_RSUSB_BACKEND=true && \
+    make -j"$(nproc)" && \
+    make install && \
+    ldconfig
 
+WORKDIR /ws/src
 RUN git clone --branch ${SICK_SCAN_REF} --depth 1 ${SICK_SCAN_REPO} sick_scan_xd && \
     git clone --branch ${REALSENSE_ROS_REF} --depth 1 ${REALSENSE_ROS_REPO} realsense-ros
 
@@ -55,8 +72,11 @@ RUN source /opt/ros/jazzy/setup.bash && \
     rosdep install -i --from-paths /ws/src --rosdistro jazzy --skip-keys=librealsense2 -r -y || true
 
 RUN source /opt/ros/jazzy/setup.bash && \
-    cd /ws && \
-    colcon build --packages-select sick_scan_xd realsense2_camera realsense2_camera_msgs realsense2_description
+    colcon build --packages-select \
+      sick_scan_xd \
+      realsense2_camera \
+      realsense2_camera_msgs \
+      realsense2_description
 
 COPY sensors/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
