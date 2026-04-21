@@ -67,7 +67,7 @@ services:
     restart: unless-stopped
 
   floribot-webteleop:
-    profiles: ["robot", "ui"]
+    profiles: ["robot"]
     build:
       context: ..
       dockerfile: webteleop/Dockerfile
@@ -84,7 +84,7 @@ services:
     restart: unless-stopped
 
   floribot-webteleop-sim:
-    profiles: ["sim", "ui"]
+    profiles: ["sim"]
     build:
       context: ..
       dockerfile: webteleop/Dockerfile
