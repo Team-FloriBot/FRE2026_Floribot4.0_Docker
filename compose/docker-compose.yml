@@ -1,6 +1,6 @@
 services:
   floribot-base:
-    profiles: ["core", "robot", "base"]
+    profiles: ["robot", "base"]
     build:
       context: ..
       dockerfile: base/Dockerfile
