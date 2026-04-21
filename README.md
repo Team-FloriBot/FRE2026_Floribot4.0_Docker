@@ -121,18 +121,6 @@ Oder über Script:
 
 * floribot-webteleop
 
----
-
-### Simulation
-
-**Profile:**
-
-* `sim`
-
-**Startet:**
-
-* floribot-stage
-* floribot-gazebo
 
 ---
 
