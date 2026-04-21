@@ -10,7 +10,7 @@ Dieses Repository stellt eine modulare Docker-Infrastruktur für den FloriBot 4.
 
 **Features:**
 
-* Trennung in Hardware-nahe Komponenten und Simulation
+* Trennung in hardwarenahe Komponenten und Simulation
 * Unterstützung für:
 
   * Base (Kinematik + Robotik-Grundsystem)
