@@ -26,7 +26,7 @@ services:
     restart: unless-stopped
 
   floribot-base-sim:
-    profiles: ["sim", "gazebo"]
+    profiles: ["sim"]
     build:
       context: ..
       dockerfile: base/Dockerfile
@@ -47,7 +47,7 @@ services:
     restart: unless-stopped
 
   floribot-sensors:
-    profiles: ["core", "robot", "sensors"]
+    profiles: ["robot", "sensors"]
     build:
       context: ..
       dockerfile: sensors/Dockerfile
@@ -67,7 +67,7 @@ services:
     restart: unless-stopped
 
   floribot-webteleop:
-    profiles: ["core", "ui", "robot"]
+    profiles: ["robot", "ui"]
     build:
       context: ..
       dockerfile: webteleop/Dockerfile
@@ -84,7 +84,7 @@ services:
     restart: unless-stopped
 
   floribot-webteleop-sim:
-    profiles: ["sim", "gazebo", "ui"]
+    profiles: ["sim", "ui"]
     build:
       context: ..
       dockerfile: webteleop/Dockerfile
@@ -120,7 +120,7 @@ services:
     restart: unless-stopped
 
   floribot-gazebo:
-    profiles: ["sim", "gazebo"]
+    profiles: ["sim"]
     build:
       context: ..
       dockerfile: gazebo/Dockerfile
@@ -140,7 +140,7 @@ services:
     restart: unless-stopped
 
   floribot-sim-backend:
-    profiles: ["sim", "gazebo"]
+    profiles: ["sim"]
     build:
       context: ..
       dockerfile: gazebo/Dockerfile
