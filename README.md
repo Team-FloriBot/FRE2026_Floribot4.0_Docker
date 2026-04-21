@@ -162,12 +162,6 @@ docker compose --profile core up
 docker compose --profile ui up
 ```
 
-### Simulation komplett
-
-```bash
-docker compose --profile sim up
-```
-
 ### Nur Stage
 
 ```bash
@@ -190,6 +184,12 @@ docker compose --profile core --profile sim up
 
 ```bash
 docker compose --profile core up -d
+```
+
+---
+### In die Konsole eines laufenden Containers springen
+```bash
+docker exec -it <container-name> bash
 ```
 
 ---
