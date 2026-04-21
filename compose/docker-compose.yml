@@ -17,8 +17,14 @@ services:
       - /dev:/dev
       - /dev/bus/usb:/dev/bus/usb
       - /run/udev:/run/udev:ro
+    command:
+      - bash
+      - -lc
+      - |
+        ros2 launch plc_connection plc_connection_launch.py &
+        exec ros2 launch base base_node.launch.py
     restart: unless-stopped
-
+    
   floribot-sensors:
     profiles: ["core", "robot", "sensors"]
     build:
