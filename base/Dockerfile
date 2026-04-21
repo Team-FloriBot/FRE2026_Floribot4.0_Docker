@@ -3,7 +3,7 @@ FROM ros:jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 
-ARG FLORIBOT_BASE_REPO=https://github.com/Team-FloriBot/FloriBot4.0-ROS2_old.git
+ARG FLORIBOT_BASE_REPO=https://github.com/Team-FloriBot/FloriBot4.0_ROS2_Jazzy_Base.git
 ARG FLORIBOT_BASE_REF=main
 
 RUN apt-get update && apt-get install -y \
@@ -34,13 +34,13 @@ WORKDIR /ws
 RUN git clone --branch ${FLORIBOT_BASE_REF} --depth 1 ${FLORIBOT_BASE_REPO} /tmp/floribot_base
 
 RUN mkdir -p /ws/src && \
-    cp -r /tmp/floribot_base/ros2_ws/src/base /ws/src/ && \
-    cp -r /tmp/floribot_base/ros2_ws/src/plc_connection /ws/src/
+    cp -r /tmp/floribot_base/src/base /ws/src/ && \
+    cp -r /tmp/floribot_base/src/plc_connection /ws/src/
 
 RUN rosdep init 2>/dev/null || true && rosdep update || true
 
 RUN source /opt/ros/jazzy/setup.bash && \
-    rosdep install --from-paths /ws/src --ignore-src -r -y || true
+    rosdep install --from-paths /ws/src --ignore-src -r -y
 
 RUN source /opt/ros/jazzy/setup.bash && \
     cd /ws && \
