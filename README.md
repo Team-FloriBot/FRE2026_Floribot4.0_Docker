@@ -1,6 +1,6 @@
 # FRE2026 FloriBot 4.0 Docker
 
-Containerisierte Umgebung für den FloriBot 4.0 auf Basis von ROS 2.
+Containerisierte Umgebung für den FloriBot 4.0 auf Basis von ROS 2 Jazzy.
 
 ---
 
