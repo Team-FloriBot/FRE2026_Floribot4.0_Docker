@@ -45,6 +45,8 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-rmw-fastrtps-cpp \
     && rm -rf /var/lib/apt/lists/*
 
+RUN echo "source /pfad/zu/deinem/workspace/install/setup.bash" >> /root/.bashrc
+
 # librealsense aus Source bauen
 WORKDIR /opt
 RUN git clone --branch ${LIBREALSENSE_REF} --depth 1 ${LIBREALSENSE_REPO} librealsense && \
