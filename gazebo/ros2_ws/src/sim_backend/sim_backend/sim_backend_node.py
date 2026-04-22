@@ -128,6 +128,20 @@ class SimBackendNode(Node):
         angle_msg.header.stamp = now
         angle_msg.angle = self.estimate_body_angle()
         self.body_angle_pub.publish(angle_msg)
+                fl = Float64()
+        fr = Float64()
+        rl = Float64()
+        rr = Float64()
+
+        fl.data = self.actual_state.front_left
+        fr.data = self.actual_state.front_right
+        rl.data = self.actual_state.rear_left
+        rr.data = self.actual_state.rear_right
+
+        self.front_left_cmd_pub.publish(fl)
+        self.front_right_cmd_pub.publish(fr)
+        self.rear_left_cmd_pub.publish(rl)
+        self.rear_right_cmd_pub.publish(rr)
 
 
 def main(args: list[str] | None = None) -> None:
