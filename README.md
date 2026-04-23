@@ -92,4 +92,33 @@ Alternativ:
 cd compose
 docker compose up <Service1> <Service2> <Service3>
 ```
-### 6. Profile
+### 6. Profile starten
+| Profil    | Startet Services         | Beschreibung              |
+| --------- | ------------------------ | ------------------------- |
+| `robot`   | base, sensors, webteleop | Komplettes Robotik-System |
+| `base`    | base                     | Nur Robotik-Kern          |
+| `sensors` | sensors                  | Nur Sensorintegration     |
+| `stage`   | stage                    | 2D-Simulation             |
+| `sim`     | gazebo                   | 3D-Simulation (Gazebo)    |
+
+#### Einzelne Profile starten:
+```bash
+docker compose --profile robot up
+```
+#### Mehrere Profile kombinieren:
+```bash
+docker compose --profile robot --profile sim up
+```
+#### Hintergrundbetrieb
+```bash
+docker compose --profile robot up -d
+```
+#### Container-Konsole
+```bash
+docker exec -it <container-name> bash
+```
+
+#### Stoppen von Containern
+```bash
+docker compose down
+```
