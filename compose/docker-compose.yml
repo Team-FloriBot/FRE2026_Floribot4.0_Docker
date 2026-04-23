@@ -67,7 +67,7 @@ services:
     restart: unless-stopped
 
   floribot-webteleop:
-    profiles: ["robot"]
+    profiles: ["robot", "sim"]
     build:
       context: ..
       dockerfile: webteleop/Dockerfile
@@ -77,23 +77,6 @@ services:
     pid: host
     depends_on:
       - floribot-base
-    environment:
-      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID}
-      ROS_AUTOMATIC_DISCOVERY_RANGE: ${ROS_AUTOMATIC_DISCOVERY_RANGE}
-      RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
-    restart: unless-stopped
-
-  floribot-webteleop-sim:
-    profiles: ["sim"]
-    build:
-      context: ..
-      dockerfile: webteleop/Dockerfile
-    container_name: floribot-webteleop-sim
-    network_mode: host
-    ipc: host
-    pid: host
-    depends_on:
-      - floribot-base-sim
     environment:
       ROS_DOMAIN_ID: ${ROS_DOMAIN_ID}
       ROS_AUTOMATIC_DISCOVERY_RANGE: ${ROS_AUTOMATIC_DISCOVERY_RANGE}
