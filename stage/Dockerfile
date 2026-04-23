@@ -48,4 +48,4 @@ COPY stage/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["bash", "-lc", "source /opt/ros/jazzy/setup.bash && source /ws/install/setup.bash && ros2 launch stage_ros2 demo.launch.py world:=maize_field & sleep 2 && exec rviz2 -d /ws/src/stage_rviz/floribot_stage.rviz"]
+CMD ["bash", "-lc", "source /opt/ros/jazzy/setup.bash && source /ws/install/setup.bash && ros2 launch stage_ros2 stage.launch.py world:=maize_field & sleep 2 && exec rviz2 -d /ws/src/stage_rviz/floribot_stage.rviz"]
