@@ -122,15 +122,15 @@ docker compose up <Service1> <Service2> <Service3>
 | `stage`   | `floribot-stage`                                                        | 2D-Simulation                             |
 | `sim`     | `floribot-base-sim`, `floribot-webteleop-sim`, `floribot-gazebo`, `floribot-sim-backend` | 3D-Simulationsumgebung mit Backend |
 
-#### Einzelne Profile starten am Beispiel von Profil "robot":
+#### Einzelne Profile starten am Beispiel von Profil `robot`:
 ```bash
 docker compose --profile robot up
 ```
-#### Mehrere Profile kombinieren am Beispiel von Profil "robot" und "sim":
+#### Mehrere Profile kombinieren am Beispiel von Profil `robot` und `sim`:
 ```bash
 docker compose --profile robot --profile sim up
 ```
-#### Hintergrundbetrieb am Beispiel von Profil "robot":
+#### Hintergrundbetrieb am Beispiel von Profil `robot`:
 ```bash
 docker compose --profile robot up -d
 ```
