@@ -62,5 +62,34 @@ xhost +local:docker
 ```bash
 cp compose/.env.example compose/.env
 ```
+### 5. Services bauen und starten
+#### Services
+| Service              | Beschreibung             |
+| -------------------- | ------------------------ |
+| `floribot-base`      | Robotik-Kern + Kinematik |
+| `floribot-sensors`   | Sensorintegration        |
+| `floribot-webteleop` | Webbasierte Steuerung    |
+| `floribot-stage`     | 2D-Simulation (Stage)    |
+| `floribot-gazebo`    | 3D-Simulation (Gazebo)   |
 
-Rest fehlt noch...
+#### Services bauen
+```bash
+cd compose
+docker compose build <Service>
+```
+Alternativ:
+```bash
+cd compose
+docker compose build <Service1> <Service2> <Service3>
+```
+#### Services starten
+```bash
+cd compose
+docker compose up <Service>
+```
+Alternativ:
+```bash
+cd compose
+docker compose up <Service1> <Service2> <Service3>
+```
+### 6. Profile
