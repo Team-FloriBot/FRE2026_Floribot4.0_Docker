@@ -109,16 +109,16 @@ docker compose --profile robot up
 ```bash
 docker compose --profile robot --profile sim up
 ```
-#### Hintergrundbetrieb
+#### Hintergrundbetrieb:
 ```bash
 docker compose --profile robot up -d
 ```
-#### Container-Konsole
+#### Container-Konsole:
 ```bash
 docker exec -it <container-name> bash
 ```
 
-#### Stoppen von Containern
+#### Stoppen von Containern:
 ```bash
-docker compose down
+docker compose down <Service>
 ```
