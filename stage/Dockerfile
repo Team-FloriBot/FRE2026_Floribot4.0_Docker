@@ -33,13 +33,15 @@ WORKDIR /ws
 RUN rosdep init || true
 RUN rosdep update
 
-RUN echo "source /pfad/zu/deinem/workspace/install/setup.bash" >> /root/.bashrc
-
 RUN apt-get update && rosdep install --from-paths /ws/src --ignore-src -r -y \
-    --skip-keys="stage ament_cmake_clang_format ament_cmake_pycodestyle"
+    --skip-keys="stage ament_cmake_clang_format ament_cmake_pycodestyle" && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN . /opt/ros/jazzy/setup.sh && \
+RUN source /opt/ros/jazzy/setup.bash && \
     colcon build --symlink-install
+
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
+    echo "if [ -f /ws/install/setup.bash ]; then source /ws/install/setup.bash; fi" >> /root/.bashrc
 
 COPY stage/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
