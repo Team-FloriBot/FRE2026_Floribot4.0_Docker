@@ -63,7 +63,6 @@ xhost +local:docker
 cp compose/.env.example compose/.env
 ```
 ### 5. Services bauen und starten
-#### Services
 | Service              | Beschreibung             |
 | -------------------- | ------------------------ |
 | `floribot-base`      | Robotik-Kern + Kinematik |
