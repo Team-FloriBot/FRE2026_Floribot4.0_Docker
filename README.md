@@ -37,9 +37,9 @@ FRE2026_FloriBot4.0_Docker/<br/>
 
 ---
 ## Voraussetzungen
-Betriebssystem: Linux (getestet mit Ubuntu-basierten Distributionen)
-Docker Engine: ≥ 24.x
-Docker Compose (Plugin v2): ≥ 2.x
+Betriebssystem: Linux (getestet mit Ubuntu-basierten Distributionen)<br/>
+Docker Engine: ≥ 24.x<br/>
+Docker Compose (Plugin v2): ≥ 2.x<br/>
 
 ## Installation
 
