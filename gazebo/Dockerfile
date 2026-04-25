@@ -44,10 +44,6 @@ RUN apt-get update && apt-get install -y \
 
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-# GUI / X11 Settings (für Gazebo + RViz)
-ENV DISPLAY=:0
-ENV QT_X11_NO_MITSHM=1
-
 WORKDIR /ws/src
 
 RUN git clone --branch ${VIRTUAL_MAIZE_FIELD_REF} --depth 1 ${VIRTUAL_MAIZE_FIELD_REPO} /ws/src/virtual_maize_field
