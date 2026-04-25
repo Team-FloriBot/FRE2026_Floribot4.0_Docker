@@ -22,7 +22,6 @@
   <xacro:property name="horizontal_length" value="0.055" />
   <xacro:property name="wheel_joint_2_mid_joint" value="0.383" />
 
-  <!-- Sensor-Positionen -->
   <xacro:property name="sensor_z" value="0.36" />
   <xacro:property name="front_sensor_x" value="-0.34" />
   <xacro:property name="rear_sensor_x" value="0.34" />
@@ -192,10 +191,6 @@
     </inertial>
   </link>
 
-  <!-- ===================== -->
-  <!-- Wheels -->
-  <!-- ===================== -->
-
   <link name="frontLeft">
     <visual>
       <origin xyz="0 -${wheel_thickness/2-0.0095} 0" rpy="1.57 0 0"/>
@@ -312,9 +307,11 @@
     <origin xyz="${x_joint_wheel_back} -${y_joint_wheel_back} 0"/>
   </joint>
 
-  <!-- ===================== -->
-  <!-- Sensors: front LiDAR -->
-  <!-- ===================== -->
+  <gazebo>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+  </gazebo>
 
   <link name="front_laser_link">
     <visual>
@@ -345,7 +342,7 @@
   </joint>
 
   <gazebo reference="front_laser_link">
-    <sensor name="front_laser" type="lidar">
+    <sensor name="front_laser" type="gpu_lidar">
       <pose>0 0 0 0 0 0</pose>
       <topic>/sensors/scanFront</topic>
       <update_rate>10</update_rate>
@@ -373,10 +370,6 @@
       </lidar>
     </sensor>
   </gazebo>
-
-  <!-- ===================== -->
-  <!-- Sensors: rear LiDAR -->
-  <!-- ===================== -->
 
   <link name="rear_laser_link">
     <visual>
@@ -407,7 +400,7 @@
   </joint>
 
   <gazebo reference="rear_laser_link">
-    <sensor name="rear_laser" type="lidar">
+    <sensor name="rear_laser" type="gpu_lidar">
       <pose>0 0 0 0 0 0</pose>
       <topic>/sensors/scanRear</topic>
       <update_rate>10</update_rate>
@@ -435,10 +428,6 @@
       </lidar>
     </sensor>
   </gazebo>
-
-  <!-- ===================== -->
-  <!-- Sensors: front camera -->
-  <!-- ===================== -->
 
   <link name="front_camera_link">
     <visual>
@@ -495,10 +484,6 @@
     </sensor>
   </gazebo>
 
-  <!-- ===================== -->
-  <!-- Sensors: rear camera -->
-  <!-- ===================== -->
-
   <link name="rear_camera_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -553,10 +538,6 @@
       </camera>
     </sensor>
   </gazebo>
-
-  <!-- ===================== -->
-  <!-- Joint velocity controllers for 4 driven wheels -->
-  <!-- ===================== -->
 
   <gazebo>
     <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
