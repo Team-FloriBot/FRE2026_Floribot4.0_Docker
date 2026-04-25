@@ -16,6 +16,7 @@
   <depend>ros_gz_sim</depend>
   <depend>floribot_gz_description</depend>
   <depend>virtual_maize_field</depend>
+  <depend>ros_gz_bridge</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
