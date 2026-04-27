@@ -17,6 +17,7 @@ Dieses Repository stellt eine modulare Docker-Infrastruktur für den FloriBot 4.
   - Webteleop (Webbasierte Steuerung)
   - Stage (2D-Simulation)
   - Gazebo (3D-Simulation)
+  - Tasks (Lösung der Aufgaben fürs FRE 2026)
 - Docker Compose mit Profilen
 - Skriptbasierte Steuerung (Build, Start, Stop, Logs)
 
@@ -95,7 +96,7 @@ cp compose/.env.example compose/.env
 | `floribot-stage`         | 2D-Simulation mit Stage                           |
 | `floribot-gazebo`        | 3D-Simulation mit Gazebo                          |
 | `floribot-sim-backend`   | Simulations-Backend inkl. ROS–Gazebo-Bridge       |
-| `floribot-tasks`         | Tasks fürs FRE2026                            |
+| `floribot-tasks`         | Tasks fürs FRE 2026                            |
 
 #### Services bauen:
 ```bash
@@ -118,14 +119,14 @@ cd compose
 docker compose up <Service1> <Service2> <Service3>
 ```
 ### 6. Profile starten
-| Profil    | Startet Services                                                        | Beschreibung                              |
-| --------- | ----------------------------------------------------------------------- | ----------------------------------------- |
-| `robot`   | `floribot-base`, `floribot-sensors`, `floribot-webteleop`, `floribot-tasks`              | Komplettes Robotik-System                 |
-| `base`    | `floribot-base`                                                         | Nur Robotik-Kern                          |
-| `sensors` | `floribot-sensors`                                                      | Nur Sensorintegration                     |
-| `stage`   | `floribot-stage`, `floribot-tasks`                                                        | 2D-Simulation                             |
-| `sim`     | `floribot-base-sim`, `floribot-webteleop-sim`, `floribot-gazebo`, `floribot-sim-backend`, `floribot-tasks` | 3D-Simulationsumgebung mit Backend |
-| `tasks`     | `floribot-tasks` | Tasks fürs FRE2026 |
+| Profil    | Startet Services                                                                                           | Beschreibung                              |
+| --------- | -----------------------------------------------------------------------------------------------------------| ----------------------------------------- |
+| `robot`   | `floribot-base`, `floribot-sensors`, `floribot-webteleop`, `floribot-tasks`                                | Komplettes Robotik-System                 |
+| `base`    | `floribot-base`                                                                                            | Nur Robotik-Kern                          |
+| `sensors` | `floribot-sensors`                                                                                         | Nur Sensorintegration                     |
+| `stage`   | `floribot-stage`, `floribot-tasks`                                                                         | 2D-Simulation                             |
+| `sim`     | `floribot-base-sim`, `floribot-webteleop-sim`, `floribot-gazebo`, `floribot-sim-backend`, `floribot-tasks` | 3D-Simulationsumgebung mit Backend        |
+| `tasks`   | `floribot-tasks`                                                                                           | Tasks fürs FRE 2026                       |
 
 #### Einzelne Profile starten am Beispiel von Profil `robot`:
 ```bash
