@@ -159,3 +159,23 @@ services:
 
           exec ros2 run sim_backend sim_backend_node
     restart: unless-stopped
+    
+  floribot-tasks:
+    profiles: ["robot", "sim", "tasks"]
+    build:
+      context: ..
+      dockerfile: tasks/Dockerfile
+    container_name: floribot-tasks
+    network_mode: host
+    ipc: host
+    pid: host
+    environment:
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID}
+      ROS_AUTOMATIC_DISCOVERY_RANGE: ${ROS_AUTOMATIC_DISCOVERY_RANGE}
+      RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
+    command:
+      - bash
+      - -lc
+      - |
+          exec ros2 launch maize_navigation maize_navigation.launch.py
+    restart: unless-stopped
