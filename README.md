@@ -91,12 +91,12 @@ cp compose/.env.example compose/.env
 | ------------------------ | ------------------------------------------------- |
 | `floribot-base`          | Robotik-Kern + Kinematik für den realen Roboter   |
 | `floribot-sensors`       | Sensorintegration für das reale System            |
-| `floribot-webteleop`     | Webbasierte Steuerung für das reale System        |
+| `floribot-webteleop`     | Webbasierte Steuerung für den Roboter             |
 | `floribot-base-sim`      | Basis-Stack für die Simulation                    |
 | `floribot-stage`         | 2D-Simulation mit Stage                           |
 | `floribot-gazebo`        | 3D-Simulation mit Gazebo                          |
 | `floribot-sim-backend`   | Simulations-Backend inkl. ROS–Gazebo-Bridge       |
-| `floribot-tasks`         | Tasks fürs FRE 2026                            |
+| `floribot-tasks`         | Tasks fürs FRE 2026                               |
 
 #### Services bauen:
 ```bash
