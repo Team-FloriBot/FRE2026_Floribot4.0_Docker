@@ -95,7 +95,7 @@ cp compose/.env.example compose/.env
 | `floribot-stage`         | 2D-Simulation mit Stage                           |
 | `floribot-gazebo`        | 3D-Simulation mit Gazebo                          |
 | `floribot-sim-backend`   | Simulations-Backend inkl. ROS–Gazebo-Bridge       |
-| `floribot-tasks`         | Task-Node fürs FRE2026                            |
+| `floribot-tasks`         | Tasks fürs FRE2026                            |
 
 #### Services bauen:
 ```bash
@@ -120,11 +120,12 @@ docker compose up <Service1> <Service2> <Service3>
 ### 6. Profile starten
 | Profil    | Startet Services                                                        | Beschreibung                              |
 | --------- | ----------------------------------------------------------------------- | ----------------------------------------- |
-| `robot`   | `floribot-base`, `floribot-sensors`, `floribot-webteleop`               | Komplettes Robotik-System                 |
+| `robot`   | `floribot-base`, `floribot-sensors`, `floribot-webteleop`, `floribot-tasks`              | Komplettes Robotik-System                 |
 | `base`    | `floribot-base`                                                         | Nur Robotik-Kern                          |
 | `sensors` | `floribot-sensors`                                                      | Nur Sensorintegration                     |
-| `stage`   | `floribot-stage`                                                        | 2D-Simulation                             |
-| `sim`     | `floribot-base-sim`, `floribot-webteleop-sim`, `floribot-gazebo`, `floribot-sim-backend` | 3D-Simulationsumgebung mit Backend |
+| `stage`   | `floribot-stage`, `floribot-tasks`                                                        | 2D-Simulation                             |
+| `sim`     | `floribot-base-sim`, `floribot-webteleop-sim`, `floribot-gazebo`, `floribot-sim-backend`, `floribot-tasks` | 3D-Simulationsumgebung mit Backend |
+| `tasks`     | `floribot-tasks` | Tasks fürs FRE2026 |
 
 #### Einzelne Profile starten am Beispiel von Profil `robot`:
 ```bash
