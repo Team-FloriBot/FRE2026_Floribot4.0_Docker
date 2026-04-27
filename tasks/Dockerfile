@@ -19,7 +19,7 @@ RUN pip3 install --no-cache-dir numpy
 RUN . /opt/ros/jazzy/setup.sh && \
     colcon build
 
-COPY entrypoint.sh /entrypoint.sh
+COPY tasks/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
