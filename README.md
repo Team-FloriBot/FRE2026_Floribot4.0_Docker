@@ -140,7 +140,7 @@ docker compose --profile robot --profile sim up
 ```bash
 docker compose --profile robot up -d
 ```
-#### Container-Konsole:
+#### Service-Konsole:
 ```bash
 docker exec -it <Service> bash
 ```
