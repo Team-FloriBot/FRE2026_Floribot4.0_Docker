@@ -3,6 +3,7 @@ FROM ros:jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
+    git \
     python3-numpy \
     python3-colcon-common-extensions \
     ros-jazzy-rclpy \
@@ -12,7 +13,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /ws
 
-COPY FRE2026_Tasks-main/src /ws/src
+RUN mkdir -p /ws/src && \
+    git clone https://github.com/Team-FloriBot/FRE2026_Tasks.git /ws/src/FRE2026_Tasks
 
 RUN . /opt/ros/jazzy/setup.sh && \
     colcon build
