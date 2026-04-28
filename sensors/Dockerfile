@@ -98,7 +98,9 @@ RUN source /opt/ros/jazzy/setup.bash && \
       --symlink-install
 
 COPY sensors/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY sensors/start_sensors.sh /start_sensors.sh
+
+RUN chmod +x /entrypoint.sh /start_sensors.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["bash"]
+CMD ["/start_sensors.sh"]
