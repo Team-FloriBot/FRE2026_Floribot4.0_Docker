@@ -19,6 +19,9 @@ RUN mkdir -p /ws/src && \
 RUN . /opt/ros/jazzy/setup.sh && \
     colcon build
 
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /etc/bash.bashrc && \
+    echo "if [ -f /ws/install/setup.bash ]; then source /ws/install/setup.bash; fi" >> /etc/bash.bashrc
+
 COPY tasks/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
