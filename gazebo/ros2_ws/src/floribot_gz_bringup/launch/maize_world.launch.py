@@ -32,8 +32,8 @@ plugin = \"\"\"
 \"\"\"
 
 roots = [
-    Path(\\"/ws/src/virtual_maize_field\\"),
-    Path(\\"/ws/install/virtual_maize_field/share/virtual_maize_field\\"),
+    Path(\\"/ws/src/virtual_maize_field"),
+    Path(\\"/ws/install/virtual_maize_field/share/virtual_maize_field"),
 ]
 
 for root in roots:
