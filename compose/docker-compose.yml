@@ -221,3 +221,28 @@ services:
           PY
           exec ros2 launch object_detection object_detection.launch.py
     restart: unless-stopped
+
+  floribot-rviz:
+    profiles: ["rviz"]
+    build:
+      context: ..
+      dockerfile: rviz/Dockerfile
+    container_name: floribot-rviz
+    network_mode: host
+    ipc: host
+    pid: host
+    environment:
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID}
+      ROS_AUTOMATIC_DISCOVERY_RANGE: ${ROS_AUTOMATIC_DISCOVERY_RANGE}
+      RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
+
+      DISPLAY: ${DISPLAY}
+      WAYLAND_DISPLAY: ${WAYLAND_DISPLAY}
+      XDG_RUNTIME_DIR: ${XDG_RUNTIME_DIR}
+      QT_X11_NO_MITSHM: 1
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /mnt/wslg:/mnt/wslg
+    stdin_open: true
+    tty: true
