@@ -103,7 +103,7 @@ cp compose/.env.example compose/.env
 cd compose
 docker compose build <Service>
 ```
-Bauen ohne Cache (z.B. nach Anpassungen im Dockerfile oder nach änderungen im Repo)
+Build ohne Cache (z. B. nach Änderungen im Dockerfile oder bei aktualisierten Abhängigkeiten im Repository):
 ```bash
 cd compose
 docker compose build <Service> --no-cache
