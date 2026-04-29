@@ -462,7 +462,7 @@
   <gazebo reference="front_camera_link">
     <sensor name="front_camera" type="camera">
       <pose>0 0 0 0 0 0</pose>
-      <topic>/sensors/front_camera/image</topic>
+      <topic>/sensors/realsense_front/color/image_raw</topic>
       <gz_frame_id>front_camera_link</gz_frame_id>
       <update_rate>30</update_rate>
       <always_on>true</always_on>
@@ -518,7 +518,7 @@
   <gazebo reference="rear_camera_link">
     <sensor name="rear_camera" type="camera">
       <pose>0 0 0 0 0 0</pose>
-      <topic>/sensors/rear_camera/image</topic>
+      <topic>/sensors/realsense_rear/color/image_raw</topic>
       <gz_frame_id>rear_camera_link</gz_frame_id>
       <update_rate>30</update_rate>
       <always_on>true</always_on>
