@@ -19,46 +19,7 @@ def generate_launch_description():
             "-lc",
             """
             source /ws/install/setup.bash && \
-            ros2 run virtual_maize_field generate_world fre22_task_navigation_mini && \
-            python3 -c '
-from pathlib import Path
-import re
-
-plugin = \"\"\"
-    <plugin filename=\\"gz-sim-sensors-system\\"
-            name=\\"gz::sim::systems::Sensors\\">
-      <render_engine>ogre2</render_engine>
-    </plugin>
-\"\"\"
-
-roots = [
-    Path(\\"/ws/src/virtual_maize_field"),
-    Path(\\"/ws/install/virtual_maize_field/share/virtual_maize_field"),
-]
-
-for root in roots:
-    if not root.exists():
-        continue
-
-    for file in list(root.rglob(\\"*.sdf\\")) + list(root.rglob(\\"*.world\\")):
-        text = file.read_text()
-
-        if \\"gz-sim-sensors-system\\" in text:
-            continue
-
-        if \\"<world\\" not in text:
-            continue
-
-        text = re.sub(
-            r\\"(<world[^>]*>)\\",
-            r\\"\\\\1\\\\n\\" + plugin,
-            text,
-            count=1,
-        )
-
-        file.write_text(text)
-        print(f\\"Patched Gazebo sensors plugin into: {file}\\")
-'
+            ros2 run virtual_maize_field generate_world fre22_task_navigation_mini
             """
         ],
         output="screen",
