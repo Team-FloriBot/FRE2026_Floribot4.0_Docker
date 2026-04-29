@@ -1,4 +1,3 @@
-@@ -0,0 +1,50 @@
 define hokuyo_laser ranger
 (
 
