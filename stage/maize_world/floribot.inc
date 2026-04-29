@@ -1,4 +1,4 @@
-define flori_laser ranger
+define flori_lidar ranger
 (
   sensor
   (
@@ -7,30 +7,47 @@ define flori_laser ranger
     samples 720
   )
 
-  color "blue"
   size [ 0.07 0.07 0.05 ]
+  color "black"
 )
 
-define flori_laser_body flori_laser
+define flori_lidar_body flori_lidar
 (
   block
   (
     points 8
-    point[0] [  0.035  0.000 ]
-    point[1] [  0.025  0.025 ]
-    point[2] [  0.000  0.035 ]
-    point[3] [ -0.025  0.025 ]
-    point[4] [ -0.035  0.000 ]
+    point[0] [ 0.035 0.000 ]
+    point[1] [ 0.025 0.025 ]
+    point[2] [ 0.000 0.035 ]
+    point[3] [ -0.025 0.025 ]
+    point[4] [ -0.035 0.000 ]
     point[5] [ -0.025 -0.025 ]
-    point[6] [  0.000 -0.035 ]
-    point[7] [  0.025 -0.025 ]
-    z [ 0.335 0.385 ]
+    point[6] [ 0.000 -0.035 ]
+    point[7] [ 0.025 -0.025 ]
+    z [ 0.36 0.41 ]
+  )
+)
+
+define flori_camera_marker model
+(
+  size [ 0.06 0.035 0.035 ]
+  color "black"
+
+  block
+  (
+    points 4
+    point[0] [ -0.03 -0.0175 ]
+    point[1] [  0.03 -0.0175 ]
+    point[2] [  0.03  0.0175 ]
+    point[3] [ -0.03  0.0175 ]
+    z [ 0.47 0.505 ]
   )
 )
 
 define floribot position
 (
   size [ 1.36 0.43 0.50 ]
+
   gui_nose 1
   color "gray30"
 
@@ -56,7 +73,7 @@ define floribot position
     z [ 0.14 0.503 ]
   )
 
-  # Gelenk
+  # Gelenk / Mittelteil
   block
   (
     points 4
@@ -67,25 +84,77 @@ define floribot position
     z [ 0.18 0.28 ]
   )
 
+  # Räder
+  block
+  (
+    points 4
+    point[0] [ -0.39  0.122 ]
+    point[1] [ -0.13  0.122 ]
+    point[2] [ -0.13  0.212 ]
+    point[3] [ -0.39  0.212 ]
+    z [ 0.00 0.28 ]
+  )
+
+  block
+  (
+    points 4
+    point[0] [ -0.39 -0.212 ]
+    point[1] [ -0.13 -0.212 ]
+    point[2] [ -0.13 -0.122 ]
+    point[3] [ -0.39 -0.122 ]
+    z [ 0.00 0.28 ]
+  )
+
+  block
+  (
+    points 4
+    point[0] [ 0.13  0.122 ]
+    point[1] [ 0.39  0.122 ]
+    point[2] [ 0.39  0.212 ]
+    point[3] [ 0.13  0.212 ]
+    z [ 0.00 0.28 ]
+  )
+
+  block
+  (
+    points 4
+    point[0] [ 0.13 -0.212 ]
+    point[1] [ 0.39 -0.212 ]
+    point[2] [ 0.39 -0.122 ]
+    point[3] [ 0.13 -0.122 ]
+    z [ 0.00 0.28 ]
+  )
+
   mass 62.4
+
   drive "diff"
   localization "odom"
   odom_error [ 0.03 0.03 0.00 0.05 ]
 
-  # Gazebo:
-  # front_sensor_x = -0.34
-  # rear_sensor_x  =  0.34
-  # sensor_z       =  0.36
-
-  flori_laser_body
+  # Front-Lidar
+  flori_lidar_body
   (
     name "scan_front"
-    pose [ -0.34 0 0.36 0 ]
+    pose [ -0.34 0 -0.3 0 ]
   )
 
-  flori_laser_body
+  # Rear-Lidar
+  flori_lidar_body
   (
     name "scan_rear"
-    pose [ 0.34 0 0.36 180 ]
+    pose [ 0.34 0 -0.3 180 ]
+  )
+
+  # nur optische Marker, keine echte Kamera in Stage
+  flori_camera_marker
+  (
+    name "camera_front_marker"
+    pose [ -0.34 0 0.47 0 ]
+  )
+
+  flori_camera_marker
+  (
+    name "camera_rear_marker"
+    pose [ 0.34 0 0.47 180 ]
   )
 )
