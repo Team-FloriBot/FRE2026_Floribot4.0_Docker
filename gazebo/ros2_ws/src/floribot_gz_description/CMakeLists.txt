@@ -3,9 +3,9 @@ project(floribot_gz_description)
 
 find_package(ament_cmake REQUIRED)
 
-install(DIRECTORY
-  meshes
-  launch
+install(
+  DIRECTORY meshes launch
+  DESTINATION share/${PROJECT_NAME}
 )
 
 ament_package()
