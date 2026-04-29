@@ -165,8 +165,8 @@ services:
             /sim/joint_rearRight/cmd_vel@std_msgs/msg/Float64@gz.msgs.Double \
             /sensors/scan_front@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan \
             /sensors/scan_rear@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan \
-            /sensors/front_camera/image@sensor_msgs/msg/Image@gz.msgs.Image \
-            /sensors/rear_camera/image@sensor_msgs/msg/Image@gz.msgs.Image &
+            /sensors/realsense_front/color/image_raw@sensor_msgs/msg/Image@gz.msgs.Image \
+            /sensors/realsense_rear/color/image_raw@sensor_msgs/msg/Image@gz.msgs.Image &
 
           exec ros2 run sim_backend sim_backend_node
     restart: unless-stopped
