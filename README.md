@@ -121,7 +121,7 @@ docker compose up <Service1> <Service2> <Service3>
 ### 6. Profile starten
 | Profil    | Startet Services                                                                                           | Beschreibung                              |
 | --------- | -----------------------------------------------------------------------------------------------------------| ----------------------------------------- |
-| `robot`   | `floribot-base`, `floribot-sensors`                                                                        | Komplettes Robotik-System                 |
+| `robot`   | `floribot-base`, `floribot-sensors`, `floribot-tasks`                                                      | Komplettes Robotik-System                 |
 | `base`    | `floribot-base`                                                                                            | Nur Robotik-Kern                          |
 | `sensors` | `floribot-sensors`                                                                                         | Nur Sensorintegration                     |
 | `stage`   | `floribot-stage`, `floribot-tasks`                                                                         | 2D-Simulation                             |
