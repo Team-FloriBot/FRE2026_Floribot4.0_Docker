@@ -126,7 +126,7 @@ services:
       RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
       DISPLAY: ${DISPLAY}
       QT_X11_NO_MITSHM: 1
-      GZ_SIM_RESOURCE_PATH: /ws/src/floribot_gz_description:/ws/src/floribot_gz_description/meshes
+      GZ_SIM_RESOURCE_PATH: /ws/src/floribot_gz_description:/ws/src/floribot_gz_description/meshes:/ws/src/robot_description:/ws/src/robot_description/meshes
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     restart: unless-stopped
