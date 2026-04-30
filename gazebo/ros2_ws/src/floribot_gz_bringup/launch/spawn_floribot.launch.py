@@ -1,27 +1,25 @@
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import Command
+
+from virtual_maize_field import get_spawner_launch_file
 
 
 def generate_launch_description():
-    spawn_robot = ExecuteProcess(
-        cmd=[
-            "bash", "-lc",
-            "set -e && "
-            "source /opt/ros/jazzy/setup.bash && "
-            "source /ws/install/setup.bash && "
-            "xacro /ws/src/robot_description/src/urdf/Floribot.urdf.xacro > /tmp/floribot_gz.urdf && "
-            "ros2 run ros_gz_sim create "
-            "-world virtual_maize_field "
-            "-name FloriBot "
-            "-file /tmp/floribot_gz.urdf "
-            "-x 0 "
-            "-y 0 "
-            "-z 0.65 "
-            "-R 0.0 "
-            "-P 0.0 "
-            "-Y 0.0"
-        ],
-        output="screen",
+    robot_urdf = Command([
+        "xacro ",
+        "/ws/src/robot_description/src/urdf/Floribot.urdf.xacro",
+    ])
+
+    spawn_robot = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(get_spawner_launch_file()),
+        launch_arguments={
+            "world": "virtual_maize_field",
+            "model_string": robot_urdf,
+            "entity_name": "FloriBot",
+            "allow_renaming": "True",
+        }.items(),
     )
 
     return LaunchDescription([
